@@ -5,16 +5,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CRUDService {
     public String createCRUD(CRUD crud){
-        return "";
+        return "hi this is test";
     }
     public String getCRUD(String documentId) {
-        return "";
+
+        return "hi";
     }
     public String updateCRUD(CRUD crud) {
-        return "";
+        return "hii";
     }
     public String deleteCRUD(String documentId) {
-        return "";
+        return "hii";
     }
 
 }
