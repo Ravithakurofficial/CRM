@@ -19,7 +19,7 @@ public class Controller { // Renamed to follow Java naming conventions
     }
 
     @GetMapping("/get") // Fixed the annotation typo
-    public String getCRUD(@RequestParam String documentId) throws InterruptedException, ExecutionException {
+    public CRUD getCRUD(@RequestParam String documentId) throws InterruptedException, ExecutionException {
         return crudService.getCRUD(documentId);
     }
 
