@@ -14,4 +14,15 @@ public class CRUD {
         public String getName() {
                 return name;
         }
+
+        public String getDocumentId() {
+                return documentId;
+        }
+        public String getfrom() {
+                return From;
+        }
+        public String getto() {
+                return TO;
+        }
+
 }
