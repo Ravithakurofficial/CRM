@@ -38,7 +38,7 @@ function signUp() {
     );
     //
     promise.catch((e) => alert(e.message));
-    alert("SignUp Successfully");
+    alert("CRM Account created Successfully");
 }
 
 //signIN function

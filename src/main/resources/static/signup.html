@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>New User</title>
 
     <link rel="stylesheet" href="./assests/login.css">
 
@@ -15,16 +15,17 @@
 <body>
     <div class="main">
         <div class="signup">
-            <h1>Login</h1>
             <h1>Hey!, How are you?</h1>
+            <p>Welcome to the CRM. Here you can create a CRM account</p>
             
             <!-- <form action="" method="post"> -->
             <input type="email" name="email" id="email" placeholder="Email" required="">
             <input type="password" name="pswd" id="password" placeholder="Password" required="">
-            <button onclick="signIn()" id="signIp">Sign in</button>
+            <button onclick="signUp()" id="signUp">Sign up</button>
             <!-- </form> -->
-            <p>For new users,<a href="./signup.html"> Register</a></p>
+            <p>Already have CRM account?<a href="./login.html"> Login</a></p>
         </div>
     </div>
+
     <script src="./assests/login.js"></script>
 </body>
