@@ -10,4 +10,10 @@ public class CRUD {
         private String From;
         private String To;
         private String name;
+        private String ChallanNO;
+        private String ItemName;
+        private String Quantity;
+        private String Price;
+
+
 }
