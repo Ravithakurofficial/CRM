@@ -3,20 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Hello world</title>
+    <title>Home Page</title>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Hey!,<p id="user_para"></p>
-        </h1>
-        <button onclick="signOut()" id="signOut">Sign Out</button>
-    </div>
+<h1>Hey!, Welcome to the Home Page </h1>
+<button onclick="goToDashboard()">Go to Dashboard</button>
+<button onclick="signOut()" id="signOut">Sign Out</button>
 
-    <style>
+<style>
         html,
         body {
             height: 100%;
@@ -116,6 +114,9 @@
                 window.location = "./login.html";
             }
         });
+         function goToDashboard() {
+            window.location.href = "/dashboard";
+        }
     </script>
 </body>
 

@@ -1,15 +1,18 @@
 package com.curd.firebase;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 
-@RestController
-public class Controller { // Renamed to follow Java naming conventions
-    private CRUDService crudService; // Renamed to follow Java naming conventions
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
 
-    public Controller(CRUDService crudService) {
+    private final CRUDService crudService;
+
+    @Autowired
+    public RestController(CRUDService crudService) {
         this.crudService = crudService;
     }
 
@@ -18,7 +21,7 @@ public class Controller { // Renamed to follow Java naming conventions
         return crudService.createCRUD(crud);
     }
 
-    @GetMapping("/get") // Fixed the annotation typo
+    @GetMapping("/get")
     public CRUD getCRUD(@RequestParam String documentId) throws InterruptedException, ExecutionException {
         return crudService.getCRUD(documentId);
     }
@@ -28,10 +31,11 @@ public class Controller { // Renamed to follow Java naming conventions
         return crudService.updateCRUD(crud);
     }
 
-    @DeleteMapping("/delete") // Changed to DeleteMapping
+    @DeleteMapping("/delete")
     public String deleteCRUD(@RequestParam String documentId) throws InterruptedException, ExecutionException {
         return crudService.deleteCRUD(documentId);
     }
+
     @GetMapping("/test")
     public ResponseEntity<String> testGetEndpoint() {
         return ResponseEntity.ok("Test Get Endpoint is working");

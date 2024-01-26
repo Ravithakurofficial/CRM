@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Add your styles if needed -->
+</head>
+<body>
+
+<h1>Data Dashboard</h1>
+
+<table class="dashboard-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the list of CRUD objects and display data -->
+    <tr th:each="crud : ${data}">
+        <td th:text="${crud.documentId}"></td>
+        <td th:text="${crud.From}"></td>
+        <td th:text="${crud.To}"></td>
+        <td th:text="${crud.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
