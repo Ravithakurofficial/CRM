@@ -10,10 +10,11 @@
 </head>
 
 <body>
-<h1>Hey!, Welcome to the Home Page </h1>
+<div class="container">
+<h1>Hey!, <p id="user_para"></p> </h1>
 <button onclick="goToDashboard()">Go to Dashboard</button>
 <button onclick="signOut()" id="signOut">Sign Out</button>
-
+</div>
 <style>
         html,
         body {
@@ -41,19 +42,25 @@
             max-width: 30rem;
             max-height: 50rem;
             justify-content: center;
+            text-align: center;
             align-items: center;
             background-color: white;
             padding: 1rem;
             margin: 3rem;
-            border-radius: 1rem;
+              background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
             justify-items: center;
             box-shadow: 5px 20px 50px #000;
         }
 
-        #signOut {
+        button {
             background-color: #7f53ac;
             color: white;
             padding: 0.5rem;
+            margin: 1rem;
             border-radius: 0.5rem;
             border: none;
             font-size: 1rem;
