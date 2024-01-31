@@ -47,10 +47,11 @@ input {
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
   transition: 0.2s ease-in;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
-input:focus, input:hover {
+input:focus,
+input:hover {
   background: #fff;
 }
 
@@ -77,22 +78,23 @@ button:hover {
   background: #50623a;
 }
 
-p{
-    color: #000;
-    font-size: 1.2em;
-    justify-content: center;
-    display: flex;
-    margin: 20px;
-    font-weight: bold;
+p {
+  color: #000;
+  font-size: 1.2em;
+  justify-content: center;
+  display: flex;
+  margin: 20px;
+  font-weight: bold;
 }
 
-a{
-    color: #294b29;
-    cursor: pointer;
-    text-decoration: none;
+a {
+  color: #294b29;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-a, p .a {
+a,
+p .a {
   color: #7f53ac;
   text-decoration: none;
 }
