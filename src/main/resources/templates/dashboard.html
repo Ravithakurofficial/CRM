@@ -4,118 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .dashboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .dashboard-table th, .dashboard-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .dashboard-table th {
-            background-color: #f2f2f2;
-        }
-        .dashboard-table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .dashboard-table tbody tr:hover {
-            background-color: #ddd;
-        }
-    </style>
     <!-- Bootstrap CSS -->
-    <link href="../static/assests/dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 </head>
 
 <body>
 
-<h1 class="text-center p-5 m-5 fs-1 fw-bold">Data Dashboard</h1>
+    <h1 class="text-center p-5 m-5 fs-1 fw-bold">Data Dashboard</h1>
 
-<div class="createdb">
-    <button onclick="Create()" >Create</button>
-</div>
+    <div class="createdb p-5 m-5">
+        <button class="btn btn-outline-success btn-sm" onclick="Create()">Create</button>
+    </div>
 
-<table class="dashboard-table">
+    <table class="dashboard-table"></table>
 
+    <div class="container">
+        <form class="text-center d-flex justify-content-center p-3 m-3 gap-3">
+            <label class="form-label my-auto fw-bold" for="search">Search in the table:</label>
+            <input class="rounded-3 w-50 text-center form-control me-2 fw-bold" id="search" type="text"
+                placeholder="Search here">
+        </form>
+        <table class="table table-striped-columns table-hover dashboard-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Master</th>
+                    <th>Location</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="bsdk">
+                <!-- Iterate over the list of CRUD objects and display data -->
+                <tr th:each="crud : ${data}">
+                    <td th:text="${crud.documentId}"></td>
+                    <td>
+                        Name :<span th:text="${crud.name}"></span><br>
+                        ChallanNo :<span th:text="${crud.challanNo}"></span><br>
+                        ItemName :<span th:text="${crud.itemName}"></span><br>
+                        Quantity :<span th:text="${crud.quantity}"></span><br>
+                        Price :<span th:text="${crud.price}"></span>
+                    </td>
+                    <td>
+                        From :<span th:text="${crud.From}"></span>
+                        <br>
+                        <br>
+                        TO :<span th:text="${crud.To}"></span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm"><a class="text-decoration-none text-dark"
+                                href="edit.html?documentId=${crud.documentId}">Edit</a></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="noResults" class="alert alert-warning mt-3 text-center" style="display: none;">No matching results
+            found.</div>
+    </div>
 
-</table>
-<div class="container">
-    <b class="text-center p-3 m-3">Search in the table:
-        <input class="rounded-2 w-50 text-center" id="search" type="text" placeholder="Search here">
-    </b>
-    <table class="table table-striped-columns table-hover dashboard-table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Master</th>
-            <th>Location</th>
-            <th>Edit</th>
-        </tr>
-        </thead>
-        <tbody id="bsdk">
-        <!-- Iterate over the list of CRUD objects and display data -->
-        <tr th:each="crud : ${data}">
-            <td th:text="${crud.documentId}"></td>
-            <td>
-                Name :<span th:text="${crud.name}"></span><br>
-                ChallanNo :<span th:text="${crud.challanNo}"></span><br>
-                ItemName :<span th:text="${crud.itemName}"></span><br>
-                Quantity :<span th:text="${crud.quantity}"></span><br>
-                Price :<span th:text="${crud.price}"></span>
-            </td>
-            <td>
-                From :<span th:text="${crud.from}"></span>
-                TO :<span th:text="${crud.to}"></span>
-            </td>
-            <!-- Modify the "Edit" button to include the document ID -->
-            <td>
-                <button><a href="edit.html?documentId=${crud.documentId}">Edit</a></button>
-            </td>
+    <footer class="mt-auto text-black-50 text-center p-5 m-5">
+        <p class="text-black display-6 fw-bold">CRM</p>
+        <p class="fw-bold">Made with ❤️ by <a href="https://github.com/Ravithakurofficial/CRM"
+                class="text-black text-decoration-none">Team Ravi</a>.</p>
+    </footer>
 
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
         $(document).ready(function () {
             $("#search").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $("#bsdk tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                var rowCount = 0;
+                $("#bsdk tr").each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(value) > -1) {
+                        $(this).show();
+                        rowCount++;
+                    } else {
+                        $(this).hide();
+                    }
                 });
+                // Show a message if no results found
+                if (rowCount === 0) {
+                    $("#noResults").show();
+                } else {
+                    $("#noResults").hide();
+                }
             });
         });
+
         function Create() {
             window.location.href = "/create.html";
         }
+    </script>
 
-</script>
 
-
-<!--Bootstrap JS and Popper-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    <!--Bootstrap JS and Popper-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 </body>
