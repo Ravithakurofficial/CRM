@@ -7,13 +7,13 @@ import lombok.Setter;
 @Setter
 public class CRUD {
         private String documentId;
-        private String From;
-        private String To;
+        private String from;
+        private String to;
         private String name;
-        private String ChallanNO;
-        private String ItemName;
-        private String Quantity;
-        private String Price;
+        private String challanNo;
+        private String itemName;
+        private String quantity;
+        private String price;
 
 
 }

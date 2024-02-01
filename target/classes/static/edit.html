@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Form</title>
+</head>
+<body>
+
+<h1>Edit Form</h1>
+
+<form id="editForm">
+    <label for="documentId">Document ID:</label>
+    <input type="text" id="documentId" name="documentId" readonly><br><br>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <!-- Include other input fields for the data -->
+
+    <button type="button" onclick="updateDocument()">Update</button>
+</form>
+
+<script>
+        // Function to fetch data and populate the form fields
+        function populateForm() {
+            // Retrieve the document ID from the URL query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const documentId = urlParams.get('documentId');
+
+            // Use AJAX or fetch to retrieve data associated with the document ID
+            // Replace this with your actual data retrieval logic
+            // For demonstration purposes, we're simply populating the document ID field
+            document.getElementById("documentId").value = documentId;
+        }
+
+        // Call the populateForm function when the page loads
+        populateForm();
+    </script>
+</body>
+</html>

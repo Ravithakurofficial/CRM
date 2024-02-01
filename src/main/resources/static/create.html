@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Data</title>
+</head>
+<body>
+<h1>Create Data</h1>
+<form id="createForm">
+    <label for="documentId">Document ID:</label><br>
+    <input type="text" id="documentId" name="documentId"><br>
+
+    <label for="from">From:</label><br>
+    <input type="text" id="from" name="from"><br>
+
+    <label for="to">To:</label><br>
+    <input type="text" id="to" name="to"><br>
+
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="challanNo">Challan No:</label><br>
+    <input type="text" id="challanNo" name="challanNo"><br>
+
+    <label for="itemName">Item Name:</label><br>
+    <input type="text" id="itemName" name="itemName"><br>
+
+    <label for="quantity">Quantity:</label><br>
+    <input type="text" id="quantity" name="quantity"><br>
+
+    <label for="price">Price:</label><br>
+    <input type="text" id="price" name="price"><br>
+
+    <button type="button" onclick="submitData()">Submit</button>
+</form>
+<script>
+function submitData() {
+var form = document.getElementById("createForm");
+var formData = new FormData(form);
+var data = {};
+formData.forEach(function(value, key){
+data[key] = value;
+});
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "/api/data", true);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onreadystatechange = function () {
+if (xhr.readyState === XMLHttpRequest.DONE) {
+if (xhr.status === 200) {
+alert("Data created successfully");
+} else {
+alert("Failed to create data");
+}
+}
+};
+xhr.send(JSON.stringify(data));
+}
+</script>
+</body>
+</html>
