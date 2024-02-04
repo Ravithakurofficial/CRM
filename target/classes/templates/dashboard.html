@@ -14,68 +14,75 @@
 
     <h1 class="text-center p-5 m-5 fs-1 fw-bold">Data Dashboard</h1>
 
-    <div class="container">
+    <div class="container"
+        style="background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; box-shadow: 5px 20px 50px #000;">
         <div class="container row">
-        <div class="container col-10">
-        <form class="text-center d-flex justify-content-center p-3 m-3 gap-3" style="background: rgba(255, 255, 255, 0.5);
--webkit-backdrop-filter: blur(10px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; box-shadow: 5px 20px 50px #000;">
-            <label class="form-label my-auto fw-bold" for="search">Search in the table:</label>
-            <input class="rounded-3 w-50 text-center form-control me-2 fw-bold" id="search" type="text"
-                placeholder="Search here">
+            <div class="container col-9 p-3 m-3">
+                <form class="text-center d-flex justify-content-center gap-3">
+                    <input class="rounded-3 form-control me-2 fw-bold" id="search" type="text"
+                        placeholder="Search in the table:">
+                </form>
+            </div>
+            <div class="container col my-auto">
+                <a class="" onclick="Create()"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                        fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                    </svg></a>
+            </div>
+        </div>
 
-        </form>
+        <div class="container">
+            <table class="table table-striped-columns table-hover dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Master</th>
+                        <th>Location</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="bsdk">
+                    <!-- Iterate over the list of CRUD objects and display data -->
+                    <tr th:each="crud : ${data}">
+                        <td th:text="${crud.documentId}"></td>
+                        <td>
+                            <div class="d-grid flex-column">
+                                <p class="lh-1">Name : <span th:text="${crud.name}"></span></p>
+                                <p class="lh-1">ChallanNo : <span th:text="${crud.challanNo}"></span></p>
+                                <p class="lh-1">ItemName : <span th:text="${crud.itemName}"></span></p>
+                                <p class="lh-1">Quantity : <span th:text="${crud.quantity}"></span></p>
+                                <p class="lh-1">Price : <span th:text="${crud.price}"></span></p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex-column">
+                                <p>From : <span th:text="${crud.From}"></span></p>
+                                <p>TO : <span th:text="${crud.To}"></span></p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid justify-content-center gap-3 mt-3">
+                                <button class="btn btn-outline-success btn-sm fw-bold rounded-3"
+                                    th:value="${crud.documentId}" onclick="update(this.value)">Edit</button>
+                                <button class="btn btn-outline-danger btn-sm fw-bold rounded-3"
+                                    th:value="${crud.documentId}" onclick="Delete(this.value)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="noResults" class="alert alert-warning mt-3 text-center fw-bold" style="display: none;">No matching
+                results
+                found.</div>
         </div>
-        <div class="container col my-auto">
-            <button class="btn btn-outline-dark btn-sm rounded-5" onclick="Create()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
-                <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
-            </svg></button>
-        </div>
-        </div>
-        <table class="table table-striped-columns table-hover dashboard-table" style="background: rgba(255, 255, 255, 0.5);
--webkit-backdrop-filter: blur(10px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 5px 20px 50px #000;">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Master</th>
-                    <th>Location</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody id="bsdk">
-                <!-- Iterate over the list of CRUD objects and display data -->
-                <tr th:each="crud : ${data}">
-                    <td th:text="${crud.documentId}"></td>
-                    <td>
-                        Name :<span th:text="${crud.name}"></span><br>
-                        ChallanNo :<span th:text="${crud.challanNo}"></span><br>
-                        ItemName :<span th:text="${crud.itemName}"></span><br>
-                        Quantity :<span th:text="${crud.quantity}"></span><br>
-                        Price :<span th:text="${crud.price}"></span>
-                    </td>
-                    <td>
-                        From :<span th:text="${crud.From}"></span>
-                        <br>
-                        <br>
-                        TO :<span th:text="${crud.To}"></span>
-                    </td>
-                    <td  >
-                       <button th:value="${crud.documentId}" onclick="update(this.value)" class="btn btn-outline-success btn-sm">
-                           Edit
-                       </button>
-                        <button th:value="${crud.documentId}" onclick="Delete(this.value)" class="btn btn-outline-success btn-sm">
-                            Delete
-                        </button>
-                </tr>
-            </tbody>
-        </table>
-        <div id="noResults" class="alert alert-warning mt-3 text-center fw-bold" style="display: none;">No matching results
-            found.</div>
     </div>
 
     <footer class="mt-auto text-black-50 text-center p-5 m-5">
         <p class="text-black display-6 fw-bold">CRM</p>
         <p class="fw-bold">Made with ❤️ by <a href="https://github.com/Ravithakurofficial/CRM"
-                class="text-black text-decoration-none">Ravi</a> & <a href="https://github.com/SauRavRwT"class="text-black text-decoration-none">Saurav. </a> </p>
+                class="text-black text-decoration-none">Team Ravi</a>.</p>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -105,13 +112,11 @@
         function Create() {
             window.location.href = "./create.html";
         }
-
-       function update(value) {
+        function update(value) {
             window.location.href = "/edit.html?documentId=" + value;
         }
-
-        function Delete(value){
-           window.location.href = "/delete.html?documentId=" + value;
+        function Delete(value) {
+            window.location.href = "/delete.html?documentId=" + value;
         }
     </script>
 
