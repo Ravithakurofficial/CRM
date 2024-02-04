@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Edit Form</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Edit Data</title>
 </head>
+<body>
+<h1>Edit Data</h1>
+<form id="editForm">
+    <label for="documentId">Document ID:</label><br>
+    <input type="text" id="documentId" name="documentId" readonly><br> <!-- Display document ID here -->
 
-<body style="background-image: linear-gradient(to right, #7f53ac 0, #657ced 100%); color: black;">
+    <label for="from">From:</label><br>
+    <input type="text" id="from" name="from"><br>
 
-    <h1 class="fs-1 p-5 m-5 fw-bold text-center">Edit Form</h1>
+    <label for="to">To:</label><br>
+    <input type="text" id="to" name="to"><br>
 
-    <div class="container d-flex justify-content-center">
-        <form id="editForm" class="p-5 d-grid gap-2 mx-auto"
-              style="background: rgba(255, 255, 255, 0.5);
--webkit-backdrop-filter: blur(10px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; box-shadow: 5px 20px 50px #000;">
-            <div class="mb-3 row">
-            <label for="documentId" class="form-label fw-bold">Document ID:</label>
-            <input type="text" id="documentId" name="documentId" class="form-control" placeholder="Text">
-            </div>
-            <div class="mb-3 row">
-            <label for="name" class="form-label fw-bold">Name:</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Name">
-            </div>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
 
-            <!-- Include other input fields for the data -->
-            <button class="btn btn-outline-success btn-sm w-25 mx-auto"  type="button" onclick="updateDocument()">Update</button>
-        </form>
-    </div>
+    <label for="challanNo">Challan No:</label><br>
+    <input type="text" id="challanNo" name="challanNo"><br>
 
+    <label for="itemName">Item Name:</label><br>
+    <input type="text" id="itemName" name="itemName"><br>
 
-    <script>
-        // Function to fetch data and populate the form fields
-        function populateForm() {
-            // Retrieve the document ID from the URL query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const documentId = urlParams.get('documentId');
+    <label for="quantity">Quantity:</label><br>
+    <input type="text" id="quantity" name="quantity"><br>
 
-            // Use AJAX or fetch to retrieve data associated with the document ID
-            // Replace this with your actual data retrieval logic
-            // For demonstration purposes, we're simply populating the document ID field
-            document.getElementById("documentId").value = documentId;
+    <label for="price">Price:</label><br>
+    <input type="text" id="price" name="price"><br>
+
+    <button type="button" onclick="submitEdit()">Submit</button>
+</form>
+<script>
+// Function to populate the document ID input field
+function populateDocumentId() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var documentId = urlParams.get('documentId');
+    document.getElementById("documentId").value = documentId;
+}
+
+// Function to submit the edit form
+function submitEdit() {
+    var form = document.getElementById("editForm");
+    var formData = new FormData(form);
+    var data = {};
+    formData.forEach(function(value, key){
+        data[key] = value;
+    });
+    var xhr = new XMLHttpRequest();
+    var documentId = document.getElementById("documentId").value;
+    xhr.open("PUT", "/update/" + documentId, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                window.location.href = "/dashboard";
+            } else {
+                alert("Failed to edit data");            }
         }
+    };
+    xhr.send(JSON.stringify(data));
+}
 
-        // Call the populateForm function when the page loads
-        populateForm();
-    </script>
-    <!--Bootstrap JS and Popper-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+// Call the function to populate the document ID input field when the page loads
+window.onload = populateDocumentId;
+</script>
 </body>
-
 </html>

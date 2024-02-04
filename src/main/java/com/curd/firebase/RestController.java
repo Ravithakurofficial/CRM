@@ -32,7 +32,7 @@ public class RestController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteCRUD(@RequestParam String documentId) throws InterruptedException, ExecutionException {
+    public String deleteCRUD(@PathVariable String documentId) throws InterruptedException, ExecutionException {
         return crudService.deleteCRUD(documentId);
     }
 

@@ -52,9 +52,13 @@
                         <br>
                         TO :<span th:text="${crud.To}"></span>
                     </td>
-                    <td>
-                        <button class="btn btn-outline-success btn-sm"><a class="text-decoration-none text-dark"
-                                href="edit.html?documentId=${crud.documentId}">Edit</a></button>
+                    <td  >
+                       <button th:value="${crud.documentId}" onclick="update(this.value)" class="btn btn-outline-success btn-sm">
+                           Edit
+                       </button>
+                        <button th:value="${crud.documentId}" onclick="Delete(this.value)" class="btn btn-outline-success btn-sm">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -66,7 +70,7 @@
     <footer class="mt-auto text-black-50 text-center p-5 m-5">
         <p class="text-black display-6 fw-bold">CRM</p>
         <p class="fw-bold">Made with ❤️ by <a href="https://github.com/Ravithakurofficial/CRM"
-                class="text-black text-decoration-none">Team Ravi</a>.</p>
+                class="text-black text-decoration-none">Ravi</a> & <a href="https://github.com/SauRavRwT"class="text-black text-decoration-none">Saurav. </a> </p>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -95,6 +99,14 @@
 
         function Create() {
             window.location.href = "/create.html";
+        }
+
+       function update(value) {
+            window.location.href = "/edit.html?documentId=" + value;
+        }
+
+        function Delete(value){
+            window.location.href = "/delete.html?documentId=" + value;
         }
     </script>
 
