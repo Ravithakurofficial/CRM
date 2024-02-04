@@ -58,7 +58,6 @@
                         <br>
                         TO :<span th:text="${crud.To}"></span>
                     </td>
-<<<<<<< HEAD
                     <td  >
                        <button th:value="${crud.documentId}" onclick="update(this.value)" class="btn btn-outline-success btn-sm">
                            Edit
@@ -66,12 +65,6 @@
                         <button th:value="${crud.documentId}" onclick="Delete(this.value)" class="btn btn-outline-success btn-sm">
                             Delete
                         </button>
-=======
-                    <td>
-                        <a class="text-decoration-none btn btn-outline-success btn-sm fw-bold rounded-3"
-                                href="edit.html?documentId=${crud.documentId}">Edit</a>
->>>>>>> 39a0cb919cb7ac5c548aa66109b2438e9456186b
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -118,7 +111,7 @@
         }
 
         function Delete(value){
-            window.location.href = "/delete.html?documentId=" + value;
+           window.location.href = "/delete.html?documentId=" + value;
         }
     </script>
 
