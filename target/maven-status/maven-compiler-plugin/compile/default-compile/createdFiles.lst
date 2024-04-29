@@ -1,0 +1,8 @@
+com\curd\firebase\CRUD.class
+com\curd\firebase\CRUDController.class
+com\curd\firebase\create.class
+com\curd\firebase\runner.class
+com\curd\firebase\delete.class
+com\curd\firebase\update.class
+com\curd\firebase\CRUDService.class
+com\curd\firebase\RestController.class

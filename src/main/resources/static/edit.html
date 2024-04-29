@@ -34,11 +34,33 @@
     <button type="button" onclick="submitEdit()">Submit</button>
 </form>
 <script>
-// Function to populate the document ID input field
-function populateDocumentId() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var documentId = urlParams.get('documentId');
-    document.getElementById("documentId").value = documentId;
+// Function to populate the form fields with data fetched from the server
+function populateFormFields(documentData) {
+    document.getElementById("from").value = documentData.from;
+    document.getElementById("to").value = documentData.to;
+    document.getElementById("name").value = documentData.name;
+    document.getElementById("challanNo").value = documentData.challanNo;
+    document.getElementById("itemName").value = documentData.itemName;
+    document.getElementById("quantity").value = documentData.quantity;
+    document.getElementById("price").value = documentData.price;
+}
+
+// Function to fetch document data and populate the form fields
+function populateFormData(documentId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/get/" + documentId, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var documentData = JSON.parse(xhr.responseText);
+                populateFormFields(documentData);
+            } else {
+                alert("Failed to fetch document data");
+            }
+        }
+    };
+    xhr.send();
 }
 
 // Function to submit the edit form
@@ -49,8 +71,8 @@ function submitEdit() {
     formData.forEach(function(value, key){
         data[key] = value;
     });
-    var xhr = new XMLHttpRequest();
     var documentId = document.getElementById("documentId").value;
+    var xhr = new XMLHttpRequest();
     xhr.open("PUT", "/update/" + documentId, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -58,14 +80,20 @@ function submitEdit() {
             if (xhr.status === 200) {
                 window.location.href = "/dashboard";
             } else {
-                alert("Failed to edit data");            }
+                alert("Failed to edit data");
+            }
         }
     };
     xhr.send(JSON.stringify(data));
 }
 
-// Call the function to populate the document ID input field when the page loads
-window.onload = populateDocumentId;
+// Call the function to populate the form fields with data when the page loads
+window.onload = function () {
+    var urlParams = new URLSearchParams(window.location.search);
+    var documentId = urlParams.get('documentId');
+    document.getElementById("documentId").value = documentId;
+    populateFormData(documentId);
+};
 </script>
 </body>
 </html>
